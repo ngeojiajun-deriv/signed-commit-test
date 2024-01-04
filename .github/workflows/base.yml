@@ -24,6 +24,7 @@ jobs:
           cat > test <<EOF
           Test
           EOF
+          git config credential.helper '!f() { sleep 1; echo "username=${GIT_USER}"; echo "password=${GIT_PASSWORD}"; }; f'
           git config --global user.name "deriv-payops-it"
           git config --global user.email "payops-it@regentmarkets.com"
           git add test
@@ -31,3 +32,6 @@ jobs:
           git checkout -b release
           git remote add origin https://github.com/ngeojiajun-deriv/signed-commit-test.git
           git push origin HEAD --force
+        environment:
+          GIT_USER:  ${{ secrets.GIT_USER }}
+          GIT_PASSWORD:  ${{ secrets.GIT_PASSWORD }}
