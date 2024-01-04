@@ -25,6 +25,7 @@ jobs:
           Test
           EOF
           git config --global user.name "deriv-payops-it"
+          git add test
           git commit -m 'test'
           git checkout -b release
           git remote add origin git@github.com:ngeojiajun-deriv/signed-commit-test.git
