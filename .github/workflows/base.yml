@@ -32,6 +32,6 @@ jobs:
           git checkout -b release
           git remote add origin https://github.com/ngeojiajun-deriv/signed-commit-test.git
           git push origin HEAD --force
-        environment:
+        env:
           GIT_USER:  ${{ secrets.GIT_USER }}
           GIT_PASSWORD:  ${{ secrets.GIT_PASSWORD }}
