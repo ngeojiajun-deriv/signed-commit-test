@@ -16,6 +16,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
+          git_config_global: true
       - name: Test
         run: |
           mkdir test
@@ -25,8 +26,6 @@ jobs:
           Test
           EOF
           git config credential.helper '!f() { sleep 1; echo "username=${GIT_USER}"; echo "password=${GIT_PASSWORD}"; }; f'
-          git config --global user.name "deriv-payops-it"
-          git config --global user.email "payops-it@regentmarkets.com"
           git add test
           git commit -m 'test'
           git checkout -b release
