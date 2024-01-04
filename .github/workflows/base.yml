@@ -1,0 +1,30 @@
+name: Build workflow
+on:
+  push:
+    branches: [ master ] # CI on merge
+permissions: write-all
+jobs:
+  build_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Checkout
+        uses: actions/checkout@v4
+      - name: GPG import
+        uses: deriv-com/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+      - name: Test
+        run: |
+          mkdir test
+          cd test
+          git init .
+          cat > test <<EOF
+          Test
+          EOF
+          git commit -m 'test'
+          git checkout -b release
+          git remote add origin git@github.com:ngeojiajun-deriv/signed-commit-test.git
+          git push origin HEAD --force
